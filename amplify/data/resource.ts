@@ -15,7 +15,7 @@ const schema = a.schema({
       address: a.string(),
       dateCreated: a.datetime()
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.owner(), allow.authenticated('identityPool')]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
