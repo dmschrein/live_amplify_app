@@ -9,11 +9,13 @@ and "delete" any "Todo" records.
 const schema = a.schema({
   UserPersonalData: a
     .model({
-      firstName: a.string(),
-      lastName: a.string(),
-      phone: a.phone(),
-      address: a.string(),
-      dateCreated: a.datetime()
+      firstName: a.string().required(),
+      lastName: a.string().required(),
+      phone: a.phone().required(),
+      address: a.string().required(),
+      state_province: a.string().required(),
+      city: a.string().required(),
+      zipCode: a.string().required()
     })
     .authorization((allow) => [allow.owner(), allow.authenticated('identityPool')]),
 });

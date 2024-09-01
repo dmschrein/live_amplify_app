@@ -22,8 +22,11 @@ const UserProfile = () => {
             await client.models.UserPersonalData.create({
                 firstName: "Mohan",
                 lastName: "Nataraj",
-                phone:"7787895311",
-                address: "2935 W 15th Avenue Vancouver BC VK63A2"
+                phone: "7787895311",
+                address: "2935 W 15th Avenue",
+                state_province: "British Columbia",
+                city: "Vancouver",
+                zipCode: "VK63A2"
             })
         }catch(error:unknown){
             if (error instanceof GraphQLError){
