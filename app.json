@@ -24,6 +24,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "web": {
+      "build": {
+        "babel": {
+          "include": [
+            "@aws-amplify/ui-react-native"
+          ]
+        }
+      }
     }
   }
 }
