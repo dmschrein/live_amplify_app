@@ -6,63 +6,67 @@ import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../../../amplify/data/resource";
 import { GraphQLError } from "graphql";
 import { useAuthenticator } from "@aws-amplify/ui-react-native";
+import { addUserProfile, fetchUser } from "./user.service";
 
 const client = generateClient<Schema>()
 
-type UserContextType = {
-    userData: Schema["UserPersonalData"]["type"][],
-    isLoading: boolean
-}
-
-export const UserProfileContext = createContext<any>({userData:{}})
+export const UserProfileContext = createContext<any>({})
 
 export const UserProfileContextProvider = ({ children }: {children: React.ReactNode} ) => {
 
     const { user, signOut } = useAuthenticator((context)=>[context.user]);
-    const [userData, setUserData] = useState<Schema["UserPersonalData"]["type"][]>([]);
+    const [userProfileData, setUserProfileData] = useState<any>();
     const [errors, setErrors] = useState<GraphQLError>();
-    const [isLoading, setisLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const  [isAuthAndLoaded, setIsAuthAndLoaded] = useState<boolean>(false);
 
-    const createUser = async () => {
+    
+
+    const createUser =  () => {
         
-
         try {
-            await client.models.UserPersonalData.create({
-                firstName: "Mohan",
-                lastName: "Nataraj",
-                phone: "7787895311",
-                address: "2935 W 15th Avenue",
-                state_province: "British Columbia",
-                city: "Vancouver",
-                zipCode: "VK63A2"
-            })
+             addUserProfile()
         }catch(error:unknown){
             if (error instanceof GraphQLError){
-                setErrors(error)
+                 setErrors(error)
             }else {
                 throw error
             }
         }finally {
-            console.log("created successfully")
+            console.log("created successfully from createUser!!!")
+             
         }
+        
     }
-
-            useEffect(()=>{
-                const fetchUser = async () => {
-                    const {data: items, errors } = await client.models.UserPersonalData.list()
-                        setUserData(items)  
-                        console.log("This is user data from setUserData",userData)    
-                }
-                 fetchUser()
+    const getUser = async () => {
+       try{ 
+            const { data: items } = await client.models.UserPersonalData.list()
+            //console.log("ItEMSS FRO M ITE ", items[0].id, "user Auth ID : ", user.userId)
+            setUserProfileData(items)
+            setIsLoading(true)
+            console.log("user data getUSer", userProfileData, "isLoading: ",isLoading)
+       } catch(error){
+        console.log("error",error)
+       }finally{
+          
+        setIsAuthAndLoaded(true) 
+        console.log("is Auth and Loaded :- ",isAuthAndLoaded)
+       }
+        
             
-                console.log("user attributes", user.signInDetails, user.username)
-            },[])
+
+    }
+        useEffect(()=> {
+            getUser()
+        },[])
+    
             
     return (
         <UserProfileContext.Provider 
         value={{
-            userData,
-            isLoading
+            userProfileData,
+            isLoading,
+            isAuthAndLoaded
         }}>
         { children }
         </UserProfileContext.Provider>

@@ -8,12 +8,12 @@ import { useContext } from "react";
 
 const Navigation = () => {
     const { route } = useAuthenticator(context => [context.route]);
-    const { userData, isLoading } = useContext(UserProfileContext)
-
+    const {  isLoading, isAuthAndLoaded } = useContext(UserProfileContext)
+    console.log("auth sate ", isAuthAndLoaded, "isLoading", isLoading)
 
     return (
         <NavigationContainer>
-           { route === 'authenticated' && isLoading ? <AppNavigator />: <Authenticator /> }
+           { route === 'authenticated' && isAuthAndLoaded  ? <AppNavigator />: <Authenticator /> }
         </NavigationContainer>
    
     )  

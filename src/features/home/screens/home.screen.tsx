@@ -9,19 +9,17 @@ import { UserProfileContext } from "../../../services/user/user.context";
 
 const HomeScreen = () => {
     const { user, signOut } = useAuthenticator((context)=>[context.user]);
-    const { userData } = useContext(UserProfileContext)
+    const { userProfileData, isLoading } = useContext(UserProfileContext)
 
-
-    console.log("usr data:",userData)
     return (
         <SafeAreaView>
             <Button title="Sign Out" onPress={signOut} />
             
-                <Text>Welcome, {userData[0].firstName + " " + userData[0].lastName}</Text>
+                <Text>Welcome, { userProfileData[0].firstName}</Text>
                 <Text> Packaged insurance</Text>
                 <Text> Create combo</Text>
 
-                <Text>User address : {userData[0].address}</Text>
+                <Text>User address : {userProfileData[0].lastName}</Text>
             
         </SafeAreaView>
     )

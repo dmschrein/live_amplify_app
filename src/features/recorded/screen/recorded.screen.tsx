@@ -4,11 +4,11 @@ import { UserProfileContext } from "../../../services/user/user.context";
 
 
 export const RecordedVideos = () => {
-    const { userData } = useContext(UserProfileContext)
+    const { userProfileData } = useContext(UserProfileContext)
 
     return (
         <SafeAreaView>
-            <Text> This is recorded videos screen !!! {userData[0].address}</Text>
+            <Text> This is recorded videos screen !!! {userProfileData[0].address}</Text>
         </SafeAreaView>
     )
 }
