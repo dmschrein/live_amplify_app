@@ -15,7 +15,8 @@ const schema = a.schema({
       address: a.string().required(),
       state_province: a.string().required(),
       city: a.string().required(),
-      zipCode: a.string().required()
+      zipCode: a.string().required(),
+      user_id: a.string().required()
     })
     .authorization((allow) => [allow.owner(), allow.authenticated('identityPool')]),
 });

@@ -6,7 +6,8 @@ import { generateClient } from "aws-amplify/data";
 import type { Schema } from "../../../amplify/data/resource";
 import { GraphQLError } from "graphql";
 import { useAuthenticator } from "@aws-amplify/ui-react-native";
-import { addUserProfile, fetchUser } from "./user.service";
+import { addUserProfile } from "./user.service";
+import { getCurrentUser } from "aws-amplify/auth";
 
 const client = generateClient<Schema>()
 
@@ -40,8 +41,10 @@ export const UserProfileContextProvider = ({ children }: {children: React.ReactN
     }
     const getUser = async () => {
        try{ 
+            
+
             const { data: items } = await client.models.UserPersonalData.list()
-            //console.log("ItEMSS FRO M ITE ", items[0].id, "user Auth ID : ", user.userId)
+            console.log("ItEMSS FRO M ITE ", items, "user Auth ID : ", user.userId)
             setUserProfileData(items)
             setIsLoading(true)
             console.log("user data getUSer", userProfileData, "isLoading: ",isLoading)
@@ -66,7 +69,8 @@ export const UserProfileContextProvider = ({ children }: {children: React.ReactN
         value={{
             userProfileData,
             isLoading,
-            isAuthAndLoaded
+            isAuthAndLoaded,
+            createUser
         }}>
         { children }
         </UserProfileContext.Provider>
