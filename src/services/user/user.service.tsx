@@ -26,7 +26,7 @@ type UserContextType = {
                 state_province: "British Columbia",
                 city: "Vancouver",
                 zipCode: "VK63A2",
-                user_id: ((await getCurrentUser()).userId)
+                id: ((await getCurrentUser()).userId)
             }).then(result => console.log("successfully added!!!")).then(result => console.log("result is : ",result))
     } 
 //We can call this function currently doesn't do anything but later we can fix while... code optimization.

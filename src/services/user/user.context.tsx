@@ -16,7 +16,7 @@ export const UserProfileContext = createContext<any>({})
 export const UserProfileContextProvider = ({ children }: {children: React.ReactNode} ) => {
 
     const { user, signOut } = useAuthenticator((context)=>[context.user]);
-    const [userProfileData, setUserProfileData] = useState<any>();
+    const [userProfileData, setUserProfileData] = useState<Schema["UserPersonalData"]["type"]|null>(null);
     const [errors, setErrors] = useState<GraphQLError>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const  [isAuthAndLoaded, setIsAuthAndLoaded] = useState<boolean>(false);
@@ -43,7 +43,7 @@ export const UserProfileContextProvider = ({ children }: {children: React.ReactN
        try{ 
             
 
-            const { data: items } = await client.models.UserPersonalData.list()
+            const { data: items } = await client.models.UserPersonalData.get({id:user.userId})
             console.log("ItEMSS FRO M ITE ", items, "user Auth ID : ", user.userId)
             setUserProfileData(items)
             setIsLoading(true)

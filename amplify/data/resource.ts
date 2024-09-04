@@ -16,9 +16,9 @@ const schema = a.schema({
       state_province: a.string().required(),
       city: a.string().required(),
       zipCode: a.string().required(),
-      user_id: a.string().required()
+
     })
-    .authorization((allow) => [allow.owner(), allow.authenticated('identityPool')]),
+    .authorization((allow) => [allow.owner()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -26,7 +26,7 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'iam',
+    defaultAuthorizationMode: 'userPool',
   },
 });
 
