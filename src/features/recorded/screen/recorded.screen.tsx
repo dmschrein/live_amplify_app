@@ -8,7 +8,7 @@ export const RecordedVideos = () => {
 
     return (
         <SafeAreaView>
-            <Text> This is recorded videos screen !!! {userProfileData[0].address}</Text>
+            <Text> This is recorded videos screen !!! {userProfileData.address}</Text>
         </SafeAreaView>
     )
 }

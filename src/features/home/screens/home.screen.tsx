@@ -15,11 +15,12 @@ const HomeScreen = () => {
         <SafeAreaView>
             <Button title="Sign Out" onPress={signOut} />
             <Button title="Create User" onPress={createUser} />
-                <Text>Welcome, { userProfileData.firstName}</Text>
+               { (userProfileData)? <Text>Welcome, { userProfileData.firstName}</Text> : null }
+               {(userProfileData)? <Text>User address : {userProfileData.address}</Text> :null}
+
                 <Text> Packaged insurance</Text>
                 <Text> Create combo</Text>
 
-                <Text>User address : {userProfileData.address}</Text>
             
         </SafeAreaView>
     )
