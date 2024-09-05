@@ -80,6 +80,6 @@ export const UserProfileContextProvider = ({ children }: {children: React.ReactN
 
 const styles = StyleSheet.create({
     signOutButton: {
-      alignSelf: "flex-end",
+      alignSelf:  "flex-end",
     },
   });

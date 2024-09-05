@@ -4,10 +4,11 @@ import { useContext } from "react";
 import {Text, View, Button, SafeAreaView} from "react-native"
 import { useAuthenticator } from "@aws-amplify/ui-react-native";
 import { UserProfileContext } from "../../../services/user/user.context";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}:{navigation:any}) => {
     const { user, signOut } = useAuthenticator((context)=>[context.user]);
     const { userProfileData, createUser } = useContext(UserProfileContext)
     console.log("user profile data:", userProfileData)
@@ -18,10 +19,14 @@ const HomeScreen = () => {
                { (userProfileData)? <Text>Welcome, { userProfileData.firstName}</Text> : null }
                {(userProfileData)? <Text>User address : {userProfileData.address}</Text> :null}
 
-                <Text> Packaged insurance</Text>
-                <Text> Create combo</Text>
+               <TouchableOpacity onPress={()=>{navigation.navigate("Create Combo")}}>
+                    <Text>Create Combo</Text>
+                </TouchableOpacity>
 
-            
+                <TouchableOpacity onPress={()=>{navigation.navigate("Pre Packaged")}}>
+                    <Text>Packaged insurance</Text>
+                </TouchableOpacity>
+
         </SafeAreaView>
     )
 }

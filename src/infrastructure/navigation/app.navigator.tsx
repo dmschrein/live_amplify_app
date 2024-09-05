@@ -10,6 +10,7 @@ import { ReportNavigator } from "./report.navigator";
 import { ReportScreen } from "../../features/report/screen/report.screen";
 import { SettingsNavigator } from "./settings.navigator";
 
+ 
 
 export const AppNavigator = () => {
    const BottomTab = createBottomTabNavigator();
