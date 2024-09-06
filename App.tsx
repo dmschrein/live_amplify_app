@@ -13,19 +13,25 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './src/features/home/screens/home.screen';
 import { UserProfileContextProvider } from './src/services/user/user.context';
 
+import { PaperProvider } from 'react-native-paper';
+
 Amplify.configure(outputs);
 
 export default function App() {
  const Tab = createBottomTabNavigator()
 
   return (
+    <PaperProvider>
     <Authenticator.Provider>
       <Authenticator>
       <UserProfileContextProvider>
-         <Navigation />
+        
+          <Navigation />
+         
       </UserProfileContextProvider>
       </Authenticator>
     </Authenticator.Provider>
+   </PaperProvider>
   );
 }
 

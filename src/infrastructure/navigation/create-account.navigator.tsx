@@ -7,9 +7,28 @@ import { VehicleInformationScreen } from "../../components/create_account/vehicl
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 
+type UserAccountData = {
+    firstName: string;
+    lastName: string;
+    address: string;
+    phone: string;
+    state: string;
+    city: string;
+    zipCode: string;
+    
+}
+
+export type AccountStackParamList = {
+    "Create Account": undefined;
+    "License Number": {userData:UserAccountData};
+    "Vehicle Information": {userData:UserAccountData, licenseNumber: string};
+};
+
+const AccountStack = createNativeStackNavigator<AccountStackParamList>();
+
 export const CreateAccountNavigator = () => {
 
-    const AccountStack = createNativeStackNavigator();
+    
 
     return (
         <AccountStack.Navigator>
