@@ -1,0 +1,33 @@
+version: 1
+
+# Deploy your code-first backend
+backend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+        - npm install --save-dev @aws-amplify/cli
+    build:
+      commands:
+        - echo "AWS_APP_ID=$AWS_APP_ID"
+        - echo "AWS_BRANCH=$AWS_BRANCH"
+        - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+
+# Then build & host your front-end
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci
+    build:
+      commands:
+        # expo build:web will produce static assets under web-build/
+        - npm run build:web
+  artifacts:
+    # Match Expo’s default output folder
+    baseDirectory: dist
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
